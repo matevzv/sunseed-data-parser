@@ -6,7 +6,7 @@ var port = new Port("/dev/ttyMFD1", {
 });
 
 port.on('data', function(data) {
-	formater.pmc(data, function(err, parsed_data){
+	parser.pmc(data, function(err, parsed_data){
 		if (err) {
 			console.log(err);
 		}
