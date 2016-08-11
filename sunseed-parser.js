@@ -1,5 +1,5 @@
 var pmc = function (data, callback) {
-  data = data.toString().split(",");
+  data = data.toString().slice(0, -1).split(",");
 	data.shift();
 
   if (data.length != 50) {
