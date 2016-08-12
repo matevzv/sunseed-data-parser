@@ -5,8 +5,8 @@ var port = new Port("/dev/ttyMFD1", {
   baudRate: 115200
 });
 
-port.on('data', function(data) {
-  parser.pmc(data, function(err, parsed_data){
+port.on('data', function (data) {
+  parser.pmc(data, function (err, parsed_data) {
     if (err) {
       console.log(err);
     }
