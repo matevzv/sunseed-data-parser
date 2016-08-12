@@ -111,8 +111,7 @@ var pmc = function (data, callback) {
     var formated = [];
 
     for (var i = 0; i < 50; i++) {
-      formated.push({"name":field_descriptions[i], "value":data[i],
-        "unit":field_units[i]});
+      formated.push({"name":field_descriptions[i], "value":data[i], "unit":field_units[i]});
     }
 
     callback(null, JSON.stringify(formated));
