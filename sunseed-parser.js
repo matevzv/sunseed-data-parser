@@ -1,6 +1,6 @@
 var pmc = function (data, callback) {
   data = data.toString().slice(0, -1).split(",");
-	data.shift();
+  data.shift();
 
   if (data.length != 50) {
     callback(new Error('Incorrect data length!'));
