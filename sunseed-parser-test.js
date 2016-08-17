@@ -1,16 +1,29 @@
 var parser = require('./sunseed-parser');
 
-var data = ["PMC"]
+var data_pmc = ["PMC"]
+var data_spm = ["SPM"]
 
 for (var i = 0; i < 50; i++) {
-  data.push(i);
+  data_pmc.push(i);
+  if (i < 14) {
+    data_spm.push(i);
+  }
 }
 
-parser.pmc(data, function (err, parsed_data) {
+parser.pmc(data_pmc, function (err, parsed_data) {
   if (err) {
     console.log(err);
   }
   else {
-    console.log(parsed_data);
+    console.log("PMC data: " + parsed_data);
+  }
+});
+
+parser.spm(data_spm, function (err, parsed_data) {
+  if (err) {
+    console.log(err);
+  }
+  else {
+    console.log("SPM data: " + parsed_data);
   }
 });
