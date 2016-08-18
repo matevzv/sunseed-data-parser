@@ -4,8 +4,8 @@ var parser = require('./sunseed-parser');
 var pmc_data_length = 50;
 var spm_data_length = 14;
 
-var data_pmc = ["PMC"]
-var data_spm = ["SPM"]
+var data_pmc = ["PMC"];
+var data_spm = ["SPM"];
 
 for (var i = 0; i < pmc_data_length; i++) {
   data_pmc.push(i);

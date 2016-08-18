@@ -142,7 +142,7 @@ var spm = function (data, callback) {
       "Phase_2_Frequency",
       "Phase_3_Frequency",
       "Status_GPS_Reference_clock",
-      "Transient"]
+      "Transient"];
 
     var field_units = ["No_Unit",
       "s",
@@ -157,7 +157,7 @@ var spm = function (data, callback) {
       "Hz",
       "Hz",
       "0_or_1",
-      "0_or_1"]
+      "0_or_1"];
 
     var formated = [];
 
