@@ -1,0 +1,10 @@
+{
+  "name": "sunseed-data-parser",
+  "version": "0.0.1",
+  "author": "Matvez Vucnik <matevz.vucnik@ijs.si>",
+  "description": "Parser accepts array and returns json",
+  "license": "MIT",
+  "dependencies": {
+    "serialport": "*"
+  }
+}
