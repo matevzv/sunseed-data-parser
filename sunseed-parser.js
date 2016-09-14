@@ -120,7 +120,7 @@ var pmc = function (data, callback) {
     var formated = [];
 
     for (var i = 0; i < pmc_data_length; i++) {
-      formated.push({"name":field_descriptions[i], "value":data[i], "unit":field_units[i]});
+      formated.push({"name":field_descriptions[i], "value":parseFloat(data[i]), "unit":field_units[i]});
     }
 
     callback(null, JSON.stringify(formated));
@@ -168,7 +168,7 @@ var spm = function (data, callback) {
     var formated = [];
 
     for (var i = 0; i < spm_data_length; i++) {
-      formated.push({"name":field_descriptions[i], "value":data[i], "unit":field_units[i]});
+      formated.push({"name":field_descriptions[i], "value":parseFloat(data[i]), "unit":field_units[i]});
     }
 
     callback(null, JSON.stringify(formated));
