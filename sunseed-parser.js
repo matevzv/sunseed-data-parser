@@ -1,4 +1,4 @@
-pmc_data_length = 50;
+pmc_data_length = 53;
 spm_data_length = 14;
 
 var pmc = function (data, callback) {
@@ -58,7 +58,10 @@ var pmc = function (data, callback) {
       "Phase_1_Apparent_Energy",
       "Phase_2_Apparent_Energy",
       "Phase_3_Apparent_Energy",
-      "Measured_Temperature"];
+      "Measured_Temperature",
+      "Input_1_Status",
+      "Input_2_Status",
+      "Input_3_Status"];
 
     var field_units = ["V",
       "V",
@@ -109,7 +112,10 @@ var pmc = function (data, callback) {
       "Wh",
       "Wh",
       "Wh",
-      "°C"];
+      "°C",
+      "1_high_or_0_low",
+      "1_high_or_0_low",
+      "1_high_or_0_low"];
 
     var formated = [];
 

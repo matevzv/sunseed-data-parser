@@ -1,7 +1,7 @@
 var parser = require('./sunseed-parser');
 
 // simulate PMC an SPM data
-var pmc_data_length = 50;
+var pmc_data_length = 53;
 var spm_data_length = 14;
 
 var data_pmc = ["PMC"];
@@ -32,6 +32,6 @@ parser.spm(data_spm, function (err, parsed_data) {
     console.log(err);
   }
   else {
-    console.log("SPM data: " + parsed_data);
+    console.log("\nSPM data: " + parsed_data);
   }
 });
