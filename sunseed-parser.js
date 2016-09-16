@@ -1,5 +1,10 @@
+fs = require('fs');
+
 pmc_data_length = 53;
 spm_data_length = 14;
+pmc_file_name = "/tmp/pmc-data"
+spm_file_name = "/tmp/spm-data"
+write_to_file = true;
 
 var pmc = function (data, callback) {
   data = data.toString().slice(0, -1).split(",");
@@ -123,7 +128,14 @@ var pmc = function (data, callback) {
       formated.push({"name":field_descriptions[i], "value":parseFloat(data[i]), "unit":field_units[i]});
     }
 
-    callback(null, JSON.stringify(formated));
+    formated_data = JSON.stringify(formated);
+
+    if (write_to_file) {
+      fs.writeFile(pmc_file_name, formated_data + "\n");
+      write_to_file = false;
+    }
+
+    callback(null, formated_data);
   }
 }
 
@@ -171,7 +183,14 @@ var spm = function (data, callback) {
       formated.push({"name":field_descriptions[i], "value":parseFloat(data[i]), "unit":field_units[i]});
     }
 
-    callback(null, JSON.stringify(formated));
+    formated_data = JSON.stringify(formated);
+
+    if (write_to_file) {
+      fs.writeFile(spm_file_name, formated_data + "\n");
+      write_to_file = false;
+    }
+
+    callback(null, formated_data);
   }
 }
 
