@@ -15,7 +15,7 @@ var toggle = function (output, callback) {
     if (output.length == 3 && (output[0] == 0 || output[0] == 1) &&
     (output[1] == 0 || output[1] == 1) &&
     (output[2] == 0 || output[2] == 1)) {
-      if (input_status[0] == output[0]) {
+      if (input_status[2] == output[2]) {
         response.push(0);
       } else {
         response.push(1);
@@ -25,7 +25,7 @@ var toggle = function (output, callback) {
       } else {
         response.push(1);
       }
-      if (input_status[2] == output[2]) {
+      if (input_status[0] == output[0]) {
         response.push(0);
       } else {
         response.push(1);
