@@ -12,10 +12,10 @@ port.on('data', function (data) {
     }
     else {
       console.log(parsed_data);
-      parser.toggle([0, 0 ,0], function (err, message) {
+      port.write(parser.toggle([0, 0 ,0], function (err, message) {
         if (err) return console.log(err.message);
         return console.log(message);
-      });
+      }));
     }
   });
 });
