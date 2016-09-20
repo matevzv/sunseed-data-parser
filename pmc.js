@@ -1,8 +1,9 @@
-var Port = require("serialport");
+var Port = require('serialport');
 var parser = require('./sunseed-parser');
 
-var port = new Port("/dev/ttyMFD1", {
-  baudRate: 115200
+var port = new Port('/dev/ttyMFD1', {
+  baudRate: 115200,
+  parity: 'odd'
 });
 
 port.on('data', function (data) {
