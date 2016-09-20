@@ -5,6 +5,46 @@ spm_data_length = 14;
 pmc_file_name = "/tmp/pmc-data"
 spm_file_name = "/tmp/spm-data"
 write_to_file = true;
+allow_toggle = true;
+input_status = [];
+
+var toggle = function (output, callback) {
+  if (allow_toggle) {
+    allow_toggle = false
+    response = ['PMCR1'];
+
+    if (output.length == 3 && (output[0] == 0 || output[0] == 1) &&
+    (output[1] == 0 || output[1] == 1) &&
+    (output[2] == 0 || output[2] == 1)) {
+      if (input_status[0] == output[0]) {
+        response.push(0);
+      } else {
+        response.push(1);
+      }
+      if (input_status[1] == output[1]) {
+        response.push(0);
+      } else {
+        response.push(1);
+      }
+      if (input_status[2] == output[2]) {
+        response.push(0);
+      } else {
+        response.push(1);
+      }
+
+      setTimeout(function () {
+        callback(null, response.join(',') + "\n");
+      }, 10);
+    } else {
+      allow_toggle = true;
+      return callback(new Error('Wrong output settings!'));
+    }
+
+    setTimeout(function() { allow_toggle = true; }, 12000);
+  } else {
+    return callback(new Error('Wait at most 12 seconds before retry!'));
+  }
+}
 
 var pmc = function (data, callback) {
   data = data.toString().slice(0, -1).split(",");
@@ -14,6 +54,7 @@ var pmc = function (data, callback) {
     callback(new Error('Incorrect data length!'));
   }
   else {
+    input_status = data.slice(-3).map(Number);
     var field_descriptions = ["Phase_1_voltage_RMS",
       "Phase_2_voltage_RMS",
       "Phase_3_voltage_RMS",
@@ -196,3 +237,4 @@ var spm = function (data, callback) {
 
 exports.pmc = pmc;
 exports.spm = spm;
+exports.toggle = toggle;
