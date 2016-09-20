@@ -10,7 +10,6 @@ input_status = [];
 
 var toggle = function (output, callback) {
   if (allow_toggle) {
-    allow_toggle = false
     response = ['PMCR1'];
 
     if (output.length == 3 && (output[0] == 0 || output[0] == 1) &&
@@ -32,15 +31,18 @@ var toggle = function (output, callback) {
         response.push(1);
       }
 
-      setTimeout(function () {
-        callback(null, response.join(',') + "\n");
-      }, 10);
+      if (response[1] == 0 && response[2] == 0 && response[3] == 0) {
+          return callback(new Error('No change!'));
+      } else {
+        allow_toggle = false;
+        setTimeout(function () {
+          callback(null, response.join(',') + "\n");
+        }, 10);
+        setTimeout(function() { allow_toggle = true; }, 12000);
+      }
     } else {
-      allow_toggle = true;
       return callback(new Error('Wrong output settings!'));
     }
-
-    setTimeout(function() { allow_toggle = true; }, 12000);
   } else {
     return callback(new Error('Wait at most 12 seconds before retry!'));
   }
