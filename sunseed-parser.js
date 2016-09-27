@@ -1,7 +1,7 @@
 fs = require('fs');
 
 pmc_data_length = 53;
-spm_data_length = 19;
+spm_data_length = 20;
 pmc_file_name = "/tmp/pmc-data"
 spm_file_name = "/tmp/spm-data"
 write_to_file = true;
