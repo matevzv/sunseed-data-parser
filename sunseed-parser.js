@@ -184,7 +184,7 @@ var pmc = function (data, callback) {
   }
 }
 
-var spm_simple(data, callback) {
+var spm_simple = function (data, callback) {
   data = data.toString().slice(0, -1).split(",");
   data.shift();
 
