@@ -1,7 +1,7 @@
 fs = require('fs');
 
 pmc_data_length = 53;
-spm_data_length = 14;
+spm_data_length = 19;
 pmc_file_name = "/tmp/pmc-data"
 spm_file_name = "/tmp/spm-data"
 write_to_file = true;
@@ -213,10 +213,10 @@ var spm_simple = function (data, callback) {
       "status4",
       "GPSstatus"];
 
-    var formated = [];
+    var formated = {};
 
     for (var i = 0; i < spm_data_length; i++) {
-      formated.push({field_descriptions[i]: parseFloat(data[i])});
+      formated[field_descriptions[i]] = parseFloat(data[i])
     }
 
     callback(null, JSON.stringify(formated));
