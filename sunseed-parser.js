@@ -184,6 +184,46 @@ var pmc = function (data, callback) {
   }
 }
 
+var spm_simple(data, callback) {
+  data = data.toString().slice(0, -1).split(",");
+  data.shift();
+
+  if (data.length != spm_data_length) {
+    callback(new Error('Incorrect data length!'));
+  }
+  else {
+    var field_descriptions = [
+      "week_id",
+      "sec_id",
+      "report_n",
+      "v1",
+      "v2",
+      "v3",
+      "psp_v",
+      "th1",
+      "th2",
+      "th3",
+      "psp_th",
+      "f1",
+      "f2",
+      "f3",
+      "f4",
+      "status1",
+      "status2",
+      "status3",
+      "status4",
+      "GPSstatus"];
+
+    var formated = [];
+
+    for (var i = 0; i < spm_data_length; i++) {
+      formated.push({field_descriptions[i]: parseFloat(data[i])});
+    }
+
+    callback(null, JSON.stringify(formated));
+  }
+}
+
 var spm = function (data, callback) {
   data = data.toString().slice(0, -1).split(",");
   data.shift();
@@ -241,4 +281,5 @@ var spm = function (data, callback) {
 
 exports.pmc = pmc;
 exports.spm = spm;
+exports.spm_simple = spm_simple;
 exports.toggle = toggle;
