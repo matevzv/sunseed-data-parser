@@ -192,8 +192,7 @@ var spm_simple = function (data, callback) {
     callback(new Error('Incorrect data length!'));
   }
   else {
-    var field_descriptions = [
-      "week_id",
+    var field_descriptions = ["week_id",
       "sec_id",
       "report_n",
       "v1",
