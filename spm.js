@@ -1,5 +1,7 @@
+#!/usr/bin/env node
+
 var Port = require('serialport');
-var parser = require('./sunseed-parser');
+var parser = require('sunseed-parser');
 
 var port = new Port('/dev/ttyMFD1', {
   baudRate: 115200,

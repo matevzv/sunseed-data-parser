@@ -1,0 +1,11 @@
+[Unit]
+Description=SPM serial reader and parser
+After=set-hostname.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/spm
+RemainAfterExit=yes
+
+[Install]
+WantedBy=basic.target
