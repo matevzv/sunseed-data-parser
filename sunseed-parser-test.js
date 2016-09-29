@@ -41,7 +41,16 @@ parser.spm_simple(data_spm, function (err, parsed_data) {
   }
 });
 
-/*parser.toggle([0, 0 ,1], function (err, message) {
+parser.spm(data_spm, function (err, parsed_data) {
+  if (err) {
+    console.log(err);
+  }
+  else {
+    console.log("\nSPM data: " + parsed_data);
+  }
+});
+
+parser.toggle([0, 0 ,1], function (err, message) {
   if (err) return console.log(err.message);
   return console.log(message);
-});*/
+});

@@ -7,12 +7,13 @@ var port = new Port('/dev/ttyMFD1', {
 });
 
 port.on('data', function (data) {
-  parser.spm_simple(data, function (err, parsed_data) {
+  parser.spm(data, function (err, parsed_data) {
     if (err) {
       console.log(err);
     }
     else {
-     console.log(parsed_data);
+      console.log(parsed_data);
+      process.exit()
     }
   });
 });
