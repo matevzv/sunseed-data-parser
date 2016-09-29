@@ -13,7 +13,7 @@ port.on('data', function (data) {
     }
     else {
       console.log(parsed_data);
-      process.exit();
+      setTimeout(function() { process.exit(); }, 1000);
     }
   });
 });
