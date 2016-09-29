@@ -184,7 +184,12 @@ var pmc = function (data, callback) {
   }
 }
 
-var spm_simple = function (data, callback) {
+var spm = function (data, callback) {
+  if (write_to_file) {
+    write_to_file = false;
+    spm_to_file(data);
+  }
+
   data = data.toString().slice(0, -1).split(",");
   data.shift();
 
@@ -223,7 +228,7 @@ var spm_simple = function (data, callback) {
   }
 }
 
-var spm = function (data, callback) {
+var spm_to_file = function (data, callback) {
   data = data.toString().slice(0, -1).split(",");
   data.shift();
 
@@ -281,16 +286,10 @@ var spm = function (data, callback) {
 
     formated_data = JSON.stringify(formated);
 
-    if (write_to_file) {
-      fs.writeFile(spm_file_name, formated_data + "\n");
-      write_to_file = false;
-    }
-
-    callback(null, formated_data);
+    fs.writeFile(spm_file_name, formated_data + "\n");
   }
 }
 
 exports.pmc = pmc;
 exports.spm = spm;
-exports.spm_simple = spm_simple;
 exports.toggle = toggle;

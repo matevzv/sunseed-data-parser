@@ -32,15 +32,6 @@ parser.pmc(data_pmc, function (err, parsed_data) {
   }
 });
 
-parser.spm_simple(data_spm, function (err, parsed_data) {
-  if (err) {
-    console.log(err);
-  }
-  else {
-    console.log("\nSPM data: " + parsed_data);
-  }
-});
-
 parser.spm(data_spm, function (err, parsed_data) {
   if (err) {
     console.log(err);
