@@ -186,7 +186,6 @@ var pmc = function (data, callback) {
 
 var spm = function (data, callback) {
   if (write_to_file) {
-    write_to_file = false;
     spm_to_file(data);
   }
 
@@ -228,14 +227,15 @@ var spm = function (data, callback) {
   }
 }
 
-var spm_to_file = function (data, callback) {
+var spm_to_file = function (data) {
   data = data.toString().slice(0, -1).split(",");
   data.shift();
 
   if (data.length != spm_data_length) {
-    callback(new Error('Incorrect data length!'));
+    return;
   }
   else {
+    write_to_file = false;
     var field_descriptions = ["Week_index",
       "Second_in_week",
       "Number_of_the_report",
