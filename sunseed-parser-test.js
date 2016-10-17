@@ -20,9 +20,6 @@ data_pmc.push(1)
 data_pmc.push(0)
 data_pmc.push(1)
 
-data_pmc.push(data_pmc.pop() + "\n");
-data_spm.push(data_spm.pop() + "\n");
-
 // test PMC and SPM parser functions
 sunseed_parser.pmc(data_pmc, function (err, parsed_data) {
   if (err) {

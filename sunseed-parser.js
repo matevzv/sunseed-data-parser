@@ -51,7 +51,7 @@ var toggle = function (output, callback) {
 }
 
 var pmc = function (data, callback) {
-  data = data.toString().slice(0, -1).split(",");
+  data = data.toString().split(",");
   data.shift();
 
   if (data.length != pmc_data_length) {
@@ -189,7 +189,7 @@ var spm = function (data, node_id, callback) {
     spm_to_file(data);
   }
 
-  data = data.toString().slice(0, -1).split(",");
+  data = data.toString().split(",");
   data.shift();
 
   if (data.length != spm_data_length) {
@@ -228,7 +228,7 @@ var spm = function (data, node_id, callback) {
 }
 
 var spm_to_file = function (data) {
-  data = data.toString().slice(0, -1).split(",");
+  data = data.toString().split(",");
   data.shift();
 
   if (data.length != spm_data_length) {
