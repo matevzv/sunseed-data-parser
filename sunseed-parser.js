@@ -184,7 +184,7 @@ var pmc = function (data, callback) {
   }
 }
 
-var spm = function (data, callback) {
+var spm = function (data, node_id, callback) {
   if (write_to_file) {
     spm_to_file(data);
   }
@@ -217,7 +217,7 @@ var spm = function (data, callback) {
       "status4",
       "GPSstatus"];
 
-    var formated = {};
+    var formated = {node_id: node_id};
 
     for (var i = 0; i < spm_data_length; i++) {
       formated[field_descriptions[i]] = parseFloat(data[i])

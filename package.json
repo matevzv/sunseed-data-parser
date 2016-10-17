@@ -5,6 +5,7 @@
   "description": "Parser accepts array and returns json",
   "license": "MIT",
   "dependencies": {
-    "serialport": "*"
+    "serialport": "*",
+    "mqtt": "*"
   }
 }

@@ -1,4 +1,5 @@
-var parser = require('./sunseed-parser');
+var fs = require('fs');
+var sunseed_parser = require('./sunseed-parser');
 
 // simulate PMC an SPM data
 var pmc_data_length = 50;
@@ -23,7 +24,7 @@ data_pmc.push(data_pmc.pop() + "\n");
 data_spm.push(data_spm.pop() + "\n");
 
 // test PMC and SPM parser functions
-parser.pmc(data_pmc, function (err, parsed_data) {
+sunseed_parser.pmc(data_pmc, function (err, parsed_data) {
   if (err) {
     console.log(err);
   }
@@ -32,16 +33,23 @@ parser.pmc(data_pmc, function (err, parsed_data) {
   }
 });
 
-parser.spm(data_spm, function (err, parsed_data) {
+fs.readFile('/etc/machine-id', function (err, file_data) {
   if (err) {
-    console.log(err);
+    return console.log(err);
   }
-  else {
-    console.log("\nSPM data: " + parsed_data);
-  }
+  machine_id = file_data.toString().slice(0, -1);
+  sunseed_parser.spm(data_spm, machine_id, function (err, parsed_data) {
+    if (err) {
+      fs.appendFile("/tmp/spm-error.log",
+        err+"\nData: " + data_spm + "\n"+"----------"+"\n");
+    }
+    else {
+      console.log("\nSPM data: " + parsed_data);
+    }
+  });
 });
 
-parser.toggle([0, 0 ,1], function (err, message) {
+sunseed_parser.toggle([0, 0 ,1], function (err, message) {
   if (err) return console.log(err.message);
   return console.log(message);
 });
