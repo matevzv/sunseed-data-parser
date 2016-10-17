@@ -23,8 +23,7 @@ fs.readFile('/etc/machine-id', function (err, file_data) {
     port.on('data', function (serial_data) {
       sunseed_parser.spm(serial_data, machine_id, function (err, parsed_data) {
         if (err) {
-          fs.appendFile("/var/log/spm-error.log",
-            err+"\nData: " + serial_data + "\n"+"----------"+"\n");
+          console.log(err + " Data: " + serial_data);
         }
         else {
           client.publish(topic, parsed_data);

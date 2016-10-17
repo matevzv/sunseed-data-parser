@@ -37,8 +37,7 @@ fs.readFile('/etc/machine-id', function (err, file_data) {
   machine_id = file_data.toString().slice(0, -1);
   sunseed_parser.spm(data_spm, machine_id, function (err, parsed_data) {
     if (err) {
-      fs.appendFile("/tmp/spm-error.log",
-        err+"\nData: " + data_spm + "\n"+"----------"+"\n");
+      console.log(err + " Data: " + data_spm);
     }
     else {
       console.log("\nSPM data: " + parsed_data);
