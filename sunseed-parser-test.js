@@ -4,14 +4,19 @@ var sunseed_parser = require('./sunseed-parser');
 // simulate PMC an SPM data
 var pmc_data_length = 50;
 var spm_data_length = 20;
+var demo_data_length = 6;
 
 var data_pmc = ["PMC"];
 var data_spm = ["SPM"];
+var data_demo = ["UW1"];
 
 for (var i = 0; i < pmc_data_length; i++) {
   data_pmc.push(i);
   if (i < spm_data_length) {
     data_spm.push(i);
+  }
+  if (i < demo_data_length) {
+    data_demo.push(i);
   }
 }
 
@@ -45,7 +50,17 @@ fs.readFile('/etc/machine-id', function (err, file_data) {
   });
 });
 
-sunseed_parser.toggle([0, 0 ,1], function (err, message) {
+sunseed_parser.demo(data_demo, 1, function (err, parsed_data) {
+  console.log(data_demo);
+  if (err) {
+    console.log(err);
+  }
+  else {
+    console.log("DEMO data: " + parsed_data);
+  }
+});
+
+/*sunseed_parser.toggle([0, 0 ,1], function (err, message) {
   if (err) return console.log(err.message);
   return console.log(message);
-});
+});*/

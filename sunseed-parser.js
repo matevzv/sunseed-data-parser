@@ -2,6 +2,7 @@ fs = require('fs');
 
 pmc_data_length = 53;
 spm_data_length = 20;
+demo_data_length = 6;
 pmc_file_name = "/tmp/pmc-data"
 spm_file_name = "/tmp/spm-data"
 write_to_file = true;
@@ -227,6 +228,31 @@ var spm = function (data, node_id, callback) {
   }
 }
 
+var demo = function (data, node_id, callback) {
+  data = data.toString().split(",");
+  data.shift();
+
+  if (data.length != demo_data_length) {
+    callback(new Error('Incorrect data length!'));
+  }
+  else {
+    var field_descriptions = ["p1",
+    "p2",
+    "p3",
+    "e1",
+    "e2",
+    "e3"];
+
+    var formated = {node_id: node_id, ts: Date.now() / 1000 | 0};
+
+    for (var i = 0; i < demo_data_length; i++) {
+      formated[field_descriptions[i]] = parseFloat(data[i])
+    }
+
+    callback(null, JSON.stringify(formated));
+  }
+}
+
 var spm_to_file = function (data) {
   data = data.toString().split(",");
   data.shift();
@@ -292,4 +318,5 @@ var spm_to_file = function (data) {
 
 exports.pmc = pmc;
 exports.spm = spm;
+exports.demo = demo;
 exports.toggle = toggle;
