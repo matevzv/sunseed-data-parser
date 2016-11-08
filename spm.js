@@ -64,12 +64,12 @@ fs.readFile('/etc/machine-id', function (err, file_data) {
     port.on('data', function (serial_data) {
       sunseed_parser.spm(serial_data, machine_id, function (err, parsed_data) {
         if (err) {
-          console.log(err + " Data: " + data_spm);
+          console.log(err + " Data: " + serial_data);
         }
         else {
           if (typeof slow !== 'undefined') {
             if (slow) {
-              if (parsed_data.includes('"report_n":49')) {
+              if (parsed_data.indexOf('"report_n":49') !== -1) {
                 client.publish(topic, parsed_data);
               }
             } else {

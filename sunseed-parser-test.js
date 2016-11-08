@@ -85,7 +85,7 @@ fs.readFile('/etc/machine-id', function (err, file_data) {
     else {
       if (typeof slow !== 'undefined') {
         if (slow) {
-          if (parsed_data.includes('"report_n":2')) {
+          if (parsed_data.indexOf('"report_n":49') !== -1) {
             console.log("\nSPM data: " + parsed_data);
           }
         } else {
