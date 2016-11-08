@@ -243,7 +243,7 @@ var demo = function (data, node_id, callback) {
     "e2",
     "e3"];
 
-    var formated = {node_id: node_id, ts: Date.now() / 1000 | 0};
+    var formated = {node_id: node_id, ts: Date.now()};
 
     for (var i = 0; i < demo_data_length; i++) {
       formated[field_descriptions[i]] = parseFloat(data[i])
