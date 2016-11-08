@@ -64,7 +64,7 @@ sunseed_parser.pmc(data_pmc, function (err, parsed_data) {
     console.log(err);
   }
   else {
-    //console.log("PMC data: " + parsed_data);
+    console.log("PMC data: " + parsed_data);
   }
 });
 
@@ -91,7 +91,7 @@ fs.readFile('/etc/machine-id', function (err, file_data) {
   });
 });
 
-/*sunseed_parser.toggle([0, 0 ,1], function (err, message) {
+sunseed_parser.toggle([0, 0 ,1], function (err, message) {
   if (err) return console.log(err.message);
   return console.log(message);
-});*/
+});
