@@ -3,15 +3,16 @@
 var fs = require('fs');
 var sunseed_parser = require('./sunseed-parser');
 
+// commandline args
 if (process.argv.length > 2) {
-  process.argv.forEach((val, index) => {
+  process.argv.forEach(function (val, index) {
     if (val == "-h" || val == "--help") {
       console.log("Usage: spm [OPTIONS] [arg...]\n");
       console.log("The Sunseed data parser.\n");
       console.log("Options:\n");
       console.log("-h, --help            Print usage");
       console.log("-f, --freq            Measurement frequency high or low");
-      console.log("                      default: heigh");
+      console.log("                      default: high");
       process.exit();
     }
     else if (val == "-f" || val == "--freq") {
@@ -20,7 +21,7 @@ if (process.argv.length > 2) {
         console.log("Measurement frequency set to " + freq + ".");
         slow = true;
       }
-      else if (freq == "heigh") {
+      else if (freq == "high") {
         console.log("Measurement frequency set to " + freq + ".");
         slow = false;
       }
@@ -29,9 +30,9 @@ if (process.argv.length > 2) {
         process.exit(1);
       }
     }
-    else if (index > 1) {
-      console.log("spm: '" + val + "' is not a spm command. See 'spm --help'.");
-      process.exit();
+    else if (index > 1 && index != 3 && val !== "low" && val !== "high" ) {
+        console.log("spm: '" + val + "' is not a spm command. See 'spm --help'.");
+        process.exit(1);
     }
   });
 }
