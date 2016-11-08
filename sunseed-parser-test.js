@@ -26,13 +26,17 @@ if (process.argv.length > 2) {
         slow = false;
       }
       else {
-        console.log("Incorrect measurement frequency setting!");
+        console.log("Incorrect measurement frequency setting! See 'spm --help'.");
         process.exit(1);
       }
     }
-    else if (index > 1 && index != 3 && val !== "low" && val !== "high" ) {
-        console.log("spm: '" + val + "' is not a spm command. See 'spm --help'.");
-        process.exit(1);
+    else if (index >= 2 && val !== "low" && val !== "high") {
+      console.log("spm: '" + val + "' is not a spm command. See 'spm --help'.");
+      process.exit(1);
+    }
+    else if (index == 2 && (val == "low" || val == "high")) {
+      console.log("spm: '" + val + "' is not a spm command. See 'spm --help'.");
+      process.exit(1);
     }
   });
 }
