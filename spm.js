@@ -11,7 +11,7 @@ var process_cli = function (callback) {
 
   process.argv.forEach(function (val, index) {
     if (val == "-h" || val == "--help") {
-      console.log("Usage: spm [OPTIONS] [arg...]\n");
+      console.log("Usage: spm [OPTIONS]\n");
       console.log("The Sunseed data parser.\n");
       console.log("Options:\n");
       console.log("-h, --help          Print usage");
