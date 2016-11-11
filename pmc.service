@@ -1,0 +1,12 @@
+[Unit]
+Description=PMC serial reader and parser
+Requires=network-online.target
+After=network-online.target edison-machine-id.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/pmc
+RemainAfterExit=yes
+
+[Install]
+WantedBy=basic.target
