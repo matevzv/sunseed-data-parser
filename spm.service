@@ -1,7 +1,7 @@
 [Unit]
 Description=SPM serial reader and parser
 Requires=network-online.target
-After=network-online.target edison-machine-id.service
+After=network-online.target edison-machine-id.service wams-config.service
 
 [Service]
 ExecStart=/bin/spm

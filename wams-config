@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+while read line; do
+	if [[ "$line" == *"SPM"* ]]; then
+		/bin/systemctl enable spm.service
+		/bin/systemctl start spm.service
+		echo "Configured SPM!"
+		exit
+	elif [[ "$line" == *"PMC"* ]]; then
+		/bin/systemctl enable pmc.service
+		/bin/systemctl start pmc.service
+		echo "Configured PMC!"
+		exit
+	fi
+done < /dev/ttyMFD1

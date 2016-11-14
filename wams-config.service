@@ -1,0 +1,11 @@
+[Unit]
+Description=Configure WAMS to SPM or PMC
+
+[Service]
+Type=oneshot
+ExecStart=/bin/wams-config
+ExecStartPost=/bin/systemctl disable wams-config
+StandardOutput=journal+console
+
+[Install]
+WantedBy=basic.target
