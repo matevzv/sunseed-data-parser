@@ -5,6 +5,9 @@ Description=Configure WAMS to SPM or PMC
 Type=forking
 ExecStart=/bin/wams-config
 ExecStartPost=/bin/systemctl disable wams-config
+TimeoutSec=3600
+Restart=on-failure
+RestartSec=10
 
 [Install]
 WantedBy=basic.target
