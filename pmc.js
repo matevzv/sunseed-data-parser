@@ -14,7 +14,9 @@ port.on('data', function (data) {
       console.log(err);
     }
     else {
-      setTimeout(function() { process.exit(); }, 5000);
+      console.log(parsed_data);
     }
   });
 });
+
+setTimeout(function() { process.exit(); }, 5000);
