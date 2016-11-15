@@ -14,11 +14,7 @@ port.on('data', function (data) {
       console.log(err);
     }
     else {
-      console.log(parsed_data);
-      parser.toggle([0, 0 ,0], function (err, message) {
-        if (err) return console.log(err.message);
-        port.write(message);
-      });
+      setTimeout(function() { process.exit(); }, 5000);
     }
   });
 });
