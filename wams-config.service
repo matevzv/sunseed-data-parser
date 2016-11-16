@@ -1,5 +1,6 @@
 [Unit]
 Description=Configure WAMS to SPM or PMC
+After=network-online.target
 
 [Service]
 Type=forking

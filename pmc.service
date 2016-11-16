@@ -4,9 +4,9 @@ Requires=network-online.target
 After=network-online.target edison-machine-id.service wams-config.service
 
 [Service]
-Type=oneshot
 ExecStart=/bin/pmc
-RemainAfterExit=yes
+Restart=always
+RestartSec=5
 
 [Install]
 WantedBy=basic.target

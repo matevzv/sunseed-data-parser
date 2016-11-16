@@ -1,10 +1,5 @@
-fs = require('fs');
-
 pmc_data_length = 53;
 spm_data_length = 20;
-pmc_file_name = "/tmp/pmc-data"
-spm_file_name = "/tmp/spm-data"
-write_to_file = true;
 allow_toggle = true;
 input_status = [];
 
@@ -175,20 +170,11 @@ var pmc = function (data, callback) {
 
     formated_data = JSON.stringify(formated);
 
-    if (write_to_file) {
-      fs.writeFile(pmc_file_name, formated_data + "\n");
-      write_to_file = false;
-    }
-
     callback(null, formated_data);
   }
 }
 
 var spm = function (data, node_id, callback) {
-  if (write_to_file) {
-    spm_to_file(data);
-  }
-
   data = data.toString().split(",");
   data.shift();
 
@@ -227,15 +213,14 @@ var spm = function (data, node_id, callback) {
   }
 }
 
-var spm_to_file = function (data) {
+var spm_long = function (data, callback) {
   data = data.toString().split(",");
   data.shift();
 
   if (data.length != spm_data_length) {
-    return;
+    callback(new Error('Incorrect data length!'));
   }
   else {
-    write_to_file = false;
     var field_descriptions = ["Week_index",
       "Second_in_week",
       "Number_of_the_report",
@@ -284,12 +269,11 @@ var spm_to_file = function (data) {
       formated.push({"name":field_descriptions[i], "value":parseFloat(data[i]), "unit":field_units[i]});
     }
 
-    formated_data = JSON.stringify(formated);
-
-    fs.writeFile(spm_file_name, formated_data + "\n");
+    callback(null, JSON.stringify(formated));
   }
 }
 
 exports.pmc = pmc;
 exports.spm = spm;
+exports.spm_long = spm_long;
 exports.toggle = toggle;

@@ -20,11 +20,11 @@ while read line; do
 done < /dev/ttyMFD1
 
 if $spm; then
-	/bin/systemctl enable spm.service
-	/bin/systemctl start spm.service &
+	/bin/systemctl enable spm-file.service
+	/bin/systemctl start spm-file.service &
 	echo "Started SPM service."
 elif $pmc; then
-	/bin/systemctl enable pmc.service
-	/bin/systemctl start pmc.service &
+	/bin/systemctl enable pmc-file.service
+	/bin/systemctl start pmc-file.service &
 	echo "Started PMC service."
 fi

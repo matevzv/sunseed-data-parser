@@ -29,6 +29,9 @@ var process_cli = function (callback) {
   callback(limit);
 }
 
+pmc_file_name = "/tmp/pmc-data";
+spm_file_name = "/tmp/spm-data";
+
 // simulate PMC an SPM data
 var pmc_data_length = 50;
 var spm_data_length = 20;
@@ -79,6 +82,26 @@ process_cli(function (limit) {
       }
     });
   });
+});
+
+sunseed_parser.pmc(data_pmc, function (err, parsed_data) {
+  if (err) {
+    console.log(err);
+  }
+  else {
+    fs.writeFileSync(pmc_file_name, parsed_data + "\n");
+    console.log("PMC file created.");
+  }
+});
+
+sunseed_parser.spm_long(data_spm, function (err, parsed_data) {
+  if (err) {
+    console.log(err);
+  }
+  else {
+    fs.writeFileSync(spm_file_name, parsed_data + "\n");
+    console.log("SPM file created.");
+  }
 });
 
 sunseed_parser.toggle([0, 0 ,1], function (err, message) {

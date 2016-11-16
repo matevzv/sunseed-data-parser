@@ -1,0 +1,13 @@
+[Unit]
+Description=PMC serial reader and file generator
+Wants=pmc.service videk.service
+Before=pmc.service videk.service
+After=wams-config.service videk-register.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/pmc-file
+RemainAfterExit=yes
+
+[Install]
+WantedBy=basic.target

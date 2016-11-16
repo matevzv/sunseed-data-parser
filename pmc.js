@@ -18,5 +18,3 @@ port.on('data', function (data) {
     }
   });
 });
-
-setTimeout(function() { process.exit(); }, 5000);
