@@ -32,7 +32,7 @@ var toggle = function (output, callback) {
         return callback(new Error('No change!'));
       } else {
         setTimeout(function () {
-          callback(null, response.join(',') + "\n");
+          callback(null, input_status.join(','), response.join(',') + "\n");
         }, 10);
         setTimeout(function() { allow_toggle = true; }, 15000);
       }
