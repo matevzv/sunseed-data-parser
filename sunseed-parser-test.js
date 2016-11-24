@@ -51,6 +51,28 @@ data_pmc.push(1)
 data_pmc.push(0)
 data_pmc.push(1)
 
+device = "spm"
+
+if (device == "spm") {
+  wams = sunseed_parser.spm;
+  data_wams = data_spm;
+}
+else if (device == "pmc") {
+  wams = sunseed_parser.pmc_simple;
+  data_wams = data_pmc;
+}
+
+// test WAMS parser functions
+wams(data_wams, "1", function (err, parsed_data) {
+  if (err) {
+    console.log(err);
+  }
+  else {
+    console.log(parsed_data);
+  }
+});
+
+
 // test PMC and SPM parser functions
 sunseed_parser.pmc(data_pmc, function (err, parsed_data) {
   if (err) {

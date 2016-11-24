@@ -45,6 +45,79 @@ var toggle = function (output, callback) {
   }
 }
 
+var pmc_simple = function (data, node_id, callback) {
+  data = data.toString().split(",");
+  data.shift();
+
+  if (data.length != pmc_data_length) {
+    callback(new Error('Incorrect data length!'));
+  }
+  else {
+    input_status = data.slice(-3).map(Number);
+    var field_descriptions = ["phase_1_voltage_rms",
+      "phase_2_voltage_rms",
+      "phase_3_voltage_rms",
+      "phase_1_current_rms",
+      "phase_2_current_rms",
+      "phase_3_current_rms",
+      "n_line_calculated_current_rms",
+      "phase_1_frequency",
+      "phase_2_voltage_phase",
+      "phase_3_voltage_phase",
+      "phase_1_voltage_thd_n",
+      "phase_2_voltage_thd_n",
+      "phase_3_voltage_thd_n",
+      "phase_1_current_thd_n",
+      "phase_2_current_thd_n",
+      "phase_3_current_thd_n",
+      "phase_1_active_power",
+      "phase_2_active_power",
+      "phase_3_active_power",
+      "phase_1_reactive_power",
+      "phase_2_reactive_power",
+      "phase_3_reactive_power",
+      "phase_1_apparent_power",
+      "phase_2_apparent_power",
+      "phase_3_apparent_power",
+      "phase_1_power_factor",
+      "phase_2_power_factor",
+      "phase_3_power_factor",
+      "phase_1_active_fundamental",
+      "phase_2_active_fundamental",
+      "phase_3_active_fundamental",
+      "phase_1_active_harmonic",
+      "phase_2_active_harmonic",
+      "phase_3_active_harmonic",
+      "phase_1_forward_active",
+      "phase_2_forward_active",
+      "phase_3_forward_active",
+      "phase_1_reverse_active",
+      "phase_2_reverse_active",
+      "phase_3_reverse_active",
+      "phase_1_forward_reactive",
+      "phase_2_forward_reactive",
+      "phase_3_forward_reactive",
+      "phase_1_reverse_reactive",
+      "phase_2_reverse_reactive",
+      "phase_3_reverse_reactive",
+      "phase_1_apparent_energy",
+      "phase_2_apparent_energy",
+      "phase_3_apparent_energy",
+      "measured_temperature",
+      "input_1_status",
+      "input_2_status",
+      "input_3_status"];
+
+      var formated = {node_id: node_id};
+
+      for (var i = 0; i < pmc_data_length; i++) {
+        formated[field_descriptions[i]] = parseFloat(data[i])
+      }
+
+      callback(null, JSON.stringify(formated));
+  }
+}
+
 var pmc = function (data, callback) {
   data = data.toString().split(",");
   data.shift();
@@ -274,6 +347,7 @@ var spm_long = function (data, callback) {
 }
 
 exports.pmc = pmc;
+exports.pmc_simple = pmc_simple;
 exports.spm = spm;
 exports.spm_long = spm_long;
 exports.toggle = toggle;
