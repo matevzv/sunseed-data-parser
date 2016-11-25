@@ -1,6 +1,6 @@
 var SerialPort = require('serialport');
 var sunseed_parser = require('sunseed-parser');
-var machine_id = fs.readFileSync('/etc/machine-id', 'utf8');
+var machine_id = fs.readFileSync('/etc/machine-id', 'utf8').trim();
 
 if (topic == "spm") {
   wams = sunseed_parser.spm;
