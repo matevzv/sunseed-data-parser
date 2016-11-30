@@ -1,7 +1,7 @@
 #!/usr/bin/env nodejs
 
 var fs = require('fs');
-var mqtt = require('mqtt')
+var mqtt = require('mqtt');
 var SerialPort = require('serialport');
 var sunseed_parser = require('sunseed-parser');
 
