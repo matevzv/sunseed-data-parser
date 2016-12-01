@@ -64,6 +64,6 @@ process_cli(function (limit) {
           }
         });
       });
-    })
+    });
   });
 });
