@@ -1,0 +1,11 @@
+[Unit]
+Description=Checks if modem present
+Before=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/mdm-check
+ExecStartPost=/bin/systemctl disable mdm-check
+
+[Install]
+WantedBy=basic.target
