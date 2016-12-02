@@ -1,6 +1,7 @@
 [Unit]
 Description=Checks if modem present
-Before=network-online.target
+Requires=set-docker-storage.service
+After=set-docker-storage.service
 
 [Service]
 Type=oneshot
