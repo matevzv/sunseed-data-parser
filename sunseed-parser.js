@@ -29,7 +29,7 @@ var toggle = function (output, callback) {
 
       if (response[1] == 0 && response[2] == 0 && response[3] == 0) {
         allow_toggle = true;
-        return callback(new Error('No change!'));
+        return;
       } else {
         setTimeout(function () {
           callback(null, input_status.join(',') + "\n", response.join(',') + "\n");
@@ -41,7 +41,7 @@ var toggle = function (output, callback) {
       return callback(new Error('Wrong output settings!'));
     }
   } else {
-    return callback(new Error('Wait at most 15 seconds before retry!'));
+    return;
   }
 }
 

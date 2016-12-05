@@ -5,7 +5,6 @@ After=network-online.target edison-machine-id.service wams-config.service
 
 [Service]
 ExecStart=/bin/pmc
-StandardOutput=null
 Restart=always
 RestartSec=5
 
