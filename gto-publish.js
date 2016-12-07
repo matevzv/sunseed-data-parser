@@ -16,6 +16,9 @@ var publish = function (client, topic) {
   }
   else if (topic == "pmc") {
     wams = sunseed_parser.pmc_simple;
+  } else {
+    console.log("Wrong mqtt topic: " + topic);
+    process.exit(1);
   }
 
   var port = new SerialPort('/dev/ttyMFD1', serial_settings);
