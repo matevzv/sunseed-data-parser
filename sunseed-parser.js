@@ -111,7 +111,7 @@ var pmc_simple = function (data, node_id, callback) {
       var formated = {node_id: node_id};
 
       for (var i = 0; i < pmc_data_length; i++) {
-        formated[field_descriptions[i]] = parseFloat(data[i])
+        formated[field_descriptions[i]] = parseFloat(data[i]);
       }
 
       callback(null, JSON.stringify(formated));
@@ -279,7 +279,7 @@ var spm = function (data, node_id, callback) {
     var formated = {node_id: node_id};
 
     for (var i = 0; i < spm_data_length; i++) {
-      formated[field_descriptions[i]] = parseFloat(data[i])
+      formated[field_descriptions[i]] = parseFloat(data[i]);
     }
 
     callback(null, JSON.stringify(formated));
