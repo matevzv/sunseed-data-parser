@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+case "$1" in
+  "start")
+    echo "start GPS"
+    #gppio 48 heigh GPS turn ON
+    DIR="/sys/class/gpio/gpio48"
+
+    if ! [ -d $DIR ]; then
+      echo "48" > /sys/class/gpio/export
+      echo "out" > /sys/class/gpio/gpio48/direction
+    fi
+
+    echo "1" > /sys/class/gpio/gpio48/value
+    ;;
+  "stop")
+    echo "stop GPS"
+    #gppio 48 heigh GPS turn OFF
+    DIR="/sys/class/gpio/gpio48"
+
+    if ! [ -d $DIR ]; then
+      echo "48" > /sys/class/gpio/export
+      echo "out" > /sys/class/gpio/gpio48/direction
+    fi
+
+    echo "0" > /sys/class/gpio/gpio48/value
+    ;;
+  *)
+    echo "Unsupported!"
+    exit 1
+    ;;
+esac

@@ -1,0 +1,11 @@
+[Unit]
+Description=Switch GPS on or off
+
+[Service]
+Type=oneshot
+ExecStart=/bin/gps start
+ExecStop=/bin/gps stop
+RemainAfterExit=yes
+
+[Install]
+WantedBy=basic.target
