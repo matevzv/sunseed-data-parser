@@ -1,0 +1,12 @@
+[Unit]
+Description=Hostname check service
+Before=videk-register.service videk.service
+After=set-hostname.service wams-config.service mdm-check.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/hostname-check
+RemainAfterExit=yes
+
+[Install]
+WantedBy=basic.target
