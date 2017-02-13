@@ -1,5 +1,6 @@
 [Unit]
 Description=Hostname check service
+Requires=set-hostname.service
 Before=videk-register.service videk.service
 After=set-hostname.service wams-config.service mdm-check.service
 

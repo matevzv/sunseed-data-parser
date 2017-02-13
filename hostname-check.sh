@@ -15,7 +15,7 @@ done
 
 if [[ $RESET == 10 ]]; then
   echo "Edison should reboot!"
-  shutdown -r now
+  shutdown -r +1
 else
   echo "Edison does not need to reboot!"
 fi
