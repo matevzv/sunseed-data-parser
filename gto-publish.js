@@ -15,7 +15,7 @@ var publish = function (client, topic) {
     serial_settings.parser = SerialPort.parsers.readline();
     wams = sunseed_parser.spm;
   }
-  else if (topic.includes("pmc") {
+  else if (topic.includes("pmc")) {
     topic = "pmc"
     wams = sunseed_parser.pmc_simple;
   } else {
