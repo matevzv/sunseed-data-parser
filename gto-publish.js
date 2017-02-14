@@ -10,11 +10,13 @@ var publish = function (client, topic) {
     parity: 'odd'
   };
 
-  if (topic == "spm") {
+  if (topic.includes("spm")) {
+    topic = "spm"
     serial_settings.parser = SerialPort.parsers.readline();
     wams = sunseed_parser.spm;
   }
-  else if (topic == "pmc") {
+  else if (topic.includes("pmc") {
+    topic = "pmc"
     wams = sunseed_parser.pmc_simple;
   } else {
     console.log("Wrong mqtt topic: " + topic);
