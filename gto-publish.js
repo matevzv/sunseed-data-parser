@@ -10,12 +10,12 @@ var publish = function (client, topic) {
     parity: 'odd'
   };
 
-  if (topic.includes("spm")) {
+  if (topic.indexOf("spm") > -1) {
     topic = "spm"
     serial_settings.parser = SerialPort.parsers.readline();
     wams = sunseed_parser.spm;
   }
-  else if (topic.includes("pmc")) {
+  else if (topic.indexOf("pmc") > -1) {
     topic = "pmc"
     wams = sunseed_parser.pmc_simple;
   } else {
