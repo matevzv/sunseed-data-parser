@@ -9,6 +9,7 @@ Type=oneshot
 TimeoutSec=120
 ExecStartPre=/bin/mdm -r 0
 ExecStart=/bin/mdm -f /var/lib/mdm/simdata.csv
+ExecStop=/bin/mdm -s "AT+CFUN=1,1"
 RemainAfterExit=yes
 
 [Install]
