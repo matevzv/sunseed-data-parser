@@ -10,13 +10,11 @@ var publish = function (client, topic) {
     parity: 'odd'
   };
 
-  if (topic.indexOf("spm") > -1) {
-    topic = "spm"
+  if (topic.indexOf("spm") > -1 && topic.indexOf(machine_id) > -1) {
     serial_settings.parser = SerialPort.parsers.readline();
     wams = sunseed_parser.spm;
   }
-  else if (topic.indexOf("pmc") > -1) {
-    topic = "pmc"
+  else if (topic.indexOf("pmc") > -1 && topic.indexOf(machine_id) > -1) {
     wams = sunseed_parser.pmc_simple;
   } else {
     console.log("Wrong mqtt topic: " + topic);
@@ -31,7 +29,7 @@ var publish = function (client, topic) {
         console.log(err + " Data: " + serial_data);
       }
       else {
-        client.publish(topic + "/" + machine_id, parsed_data);
+        client.publish(topic, parsed_data);
       }
     });
   });
