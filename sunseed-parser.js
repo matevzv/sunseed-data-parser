@@ -108,7 +108,7 @@ var pmc_simple = function (data, node_id, callback) {
       "input_2_status",
       "input_3_status"];
 
-      var formated = {node_id: node_id};
+      var formated = {node_id: node_id, ts: + new Date()};
 
       for (var i = 0; i < pmc_data_length; i++) {
         formated[field_descriptions[i]] = parseFloat(data[i]);
