@@ -119,11 +119,12 @@ var pmc_simple = function (data, node_id, callback) {
   }
 }
 
-var pmc_simple_modbus = function (data, node_id, callback) {
+var pmc_simple_modbus = function (data, status, node_id, callback) {
   if (data.length != pmc_modbus_data_length) {
     callback(new Error('Incorrect data length!'));
   }
   else {
+    input_status = status;
     var field_descriptions = ["phase_1_voltage_rms",
       "phase_2_voltage_rms",
       "phase_3_voltage_rms",
