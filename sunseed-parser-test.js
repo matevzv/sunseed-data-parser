@@ -39,10 +39,16 @@ var spm_data_length = 20;
 var data_pmc = ["PMC"];
 var data_spm = ["SPM"];
 
+var pmc_data_hp_length = 38;
+var data_pmc_hp = [];
+
 for (var i = 0; i < pmc_data_length; i++) {
   data_pmc.push(i);
   if (i < spm_data_length) {
     data_spm.push(i);
+  }
+  if (i < pmc_data_hp_length) {
+    data_pmc_hp.push(i);
   }
 }
 
@@ -123,6 +129,18 @@ sunseed_parser.spm_long(data_spm, function (err, parsed_data) {
   else {
     fs.writeFileSync(spm_file_name, parsed_data + "\n");
     console.log("SPM file created.");
+  }
+});
+
+pmc_hp_file_name = "/tmp/pmc-hp-data";
+
+sunseed_parser.pmc_modbus_hp(data_pmc_hp, function (err, parsed_data) {
+  if (err) {
+    console.log(err);
+  }
+  else {
+    fs.writeFileSync(pmc_hp_file_name, parsed_data + "\n");
+    console.log("PMC hp file created.");
   }
 });
 

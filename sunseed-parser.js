@@ -1,5 +1,6 @@
 pmc_data_length = 53;
 pmc_modbus_data_length = 50;
+pmc_modbus_hp_length = 38;
 spm_data_length = 20;
 allow_toggle = true;
 input_status = [];
@@ -438,6 +439,62 @@ var pmc_modbus = function (data, callback) {
   }
 }
 
+var pmc_modbus_hp = function (data, callback) {
+  if (data.length != pmc_modbus_hp_length) {
+    callback(new Error('Incorrect data length!'));
+  }
+  else {
+    var field_descriptions = ["delovanje_tc",
+      "nacin_delovanja_tc",
+      "status_dodatnega_vira",
+      "status_rezervnega_vira",
+      "status_alternativnega_vira",
+      "status_pasivnega_hlajenja",
+      "status_napak",
+      "rezim_delovanja",
+      "program_delovanja",
+      "status_servisa",
+      "vklop_izklop_sistema",
+      "izbira_programa_delovanja",
+      "korekcija_temp_sistema",
+      "zelena_temp_zalogovnika",
+      "status_regulacije_zalogovnika_krivulja",
+      "tren_zelena_temp_zalogovnika",
+      "status_delov_tc_po_urniku",
+      "status_glavne_obtoc_crp",
+      "obrat_ure_kompres_hlajenje",
+      "obrat_ure_alternativni_vir",
+      "obrat_ure_kompres_gretje",
+      "obrat_minute_kompres_dnevno",
+      "obrat_ure_toplotni_vir",
+      "obrat_ure_dv1",
+      "obrat_ure_dv2",
+      "obrat_ure_obt_crp",
+      "prostorska_temp",
+      "temp_zalogov_pov",
+      "zunanja_temperatura",
+      "temp_dviznega_voda",
+      "temp_vstopa",
+      "temp_izstopa",
+      "temp_alte_vira",
+      "alarmi_iz_registra_2114",
+      "alarmi_iz_registra_2115",
+      "alarmi_iz_registra_2116",
+      "alarmi_iz_registra_2117",
+      "preklop_rezima_poletni_zimski"]
+
+    var formated = [];
+
+    for (var i = 0; i < pmc_modbus_hp_length; i++) {
+      formated.push({"name":field_descriptions[i], "value":parseFloat(data[i]), "unit":"int"});
+    }
+
+    formated_data = JSON.stringify(formated);
+
+    callback(null, formated_data);
+  }
+}
+
 var spm = function (data, node_id, callback) {
   data = data.toString().split(",");
   data.shift();
@@ -539,6 +596,7 @@ var spm_long = function (data, callback) {
 
 exports.pmc = pmc;
 exports.pmc_modbus = pmc_modbus;
+exports.pmc_modbus_hp = pmc_modbus_hp;
 exports.pmc_simple = pmc_simple;
 exports.pmc_simple_modbus = pmc_simple_modbus;
 exports.spm = spm;
