@@ -45,7 +45,7 @@ var toggle = function (output, callback) {
   }
 }
 
-var pmc_simple = function (data, node_id, callback) {
+var pmc_simple = function (data, callback) {
   data = data.toString().split(",");
   data.shift();
 
@@ -108,13 +108,13 @@ var pmc_simple = function (data, node_id, callback) {
       "input_2_status",
       "input_3_status"];
 
-      var formated = {node_id: node_id, ts: + new Date()};
+      var formated = {};
 
       for (var i = 0; i < pmc_data_length; i++) {
         formated[field_descriptions[i]] = parseFloat(data[i]);
       }
 
-      callback(null, JSON.stringify(formated));
+      callback(null, formated);
   }
 }
 
