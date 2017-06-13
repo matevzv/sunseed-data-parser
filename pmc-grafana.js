@@ -10,9 +10,9 @@ var machine_id = fs.readFileSync('/etc/machine-id', 'utf8').trim();
 
 const influx = new Influx.InfluxDB({
   host: 'localhost',
-  database: 'telegraf',
-  username: 'telegraf',
-  password: 'telegraf'
+  database: 'pmc',
+  username: 'pmc',
+  password: 'pmc'
 });
 
 var port = new SerialPort('/dev/ttyMFD1', {
@@ -28,7 +28,7 @@ port.on('data', function (serial_data) {
     else {
       influx.writePoints([
       {
-        measurement: 'pmc',
+        measurement: 'pmc_data',
         tags: { host: machine_id },
         fields: parsed_data,
         timestamp: new Date()
