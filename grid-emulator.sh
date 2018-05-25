@@ -21,4 +21,4 @@ do
   run+="nodejs spm.js -i "$i" & "
 done
 
-eval ""$run"wait"
+eval "$run""wait"
