@@ -18,3 +18,6 @@ for i in "${arr[@]}"
 do
   nodejs spm.js -i  "$i" &
 done
+
+wait
+kill -- -$$
