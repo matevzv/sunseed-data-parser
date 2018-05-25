@@ -18,7 +18,7 @@ run = ""
 
 for i in "${arr[@]}"
 do
-  run+="nodejs spm.js -i "$i" & "
+  run+="nodejs spm.js -i ${i} & "
 done
 
 eval "$run""wait"
