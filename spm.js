@@ -45,15 +45,15 @@ process_cli(function (machine_id) {
   var client  = mqtt.connect('mqtt://127.0.0.1');
   client.on('connect', function () {
     setInterval(function () {
-      for (let i = 0; i < lines.length; i++) {
-        sunseed_parser.spm(lines[i], machine_id, function (err, parsed_data) {
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        sunseed_parser.spm(line, machine_id, function (err, parsed_data) {
           if (err) {
-            console.log(err + " Data: " + lines[i]);
+            console.log(err + " Data: " + line);
           }
           else {
             setTimeout(function () {
               client.publish(topic, parsed_data);
-              //console.log(parsed_data);
             }, 20*i);
           }
         });
