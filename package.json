@@ -5,7 +5,7 @@
   "description": "Parser accepts array and returns json",
   "license": "MIT",
   "dependencies": {
-    "serialport": "*",
+    "gps-time": "^1.0.3",
     "mqtt": "*"
   }
 }

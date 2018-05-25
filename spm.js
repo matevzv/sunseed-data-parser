@@ -2,12 +2,16 @@
 
 var fs = require('fs');
 var mqtt = require('mqtt');
-var SerialPort = require('serialport');
-var sunseed_parser = require('sunseed-parser');
+var sunseed_parser = require('./sunseed-parser');
 
 // commandline args
 var process_cli = function (callback) {
-  var limit = false;
+  var machine_id = "";
+
+  if (process.argv.length < 3 || process.argv.length > 5) {
+    console.log("Not spm command. See 'spm --help'.");
+    process.exit(1);
+  }
 
   process.argv.forEach(function (val, index) {
     if (val == "-h" || val == "--help") {
@@ -15,55 +19,45 @@ var process_cli = function (callback) {
       console.log("The Sunseed data parser.\n");
       console.log("Options:\n");
       console.log("-h, --help          Print usage");
-      console.log("-l, --limit         Limit measurement period to 1 second");
+      console.log("-i, --id            Machine ID");
       process.exit();
     }
-    else if (val == "-l" || val == "--limit") {
-      console.log("Measurement period limited to 1 second.");
-      limit = true;
-    }
-    else if (index > 1) {
-      console.log("spm: '" + val + "' is not a spm command. See 'spm --help'.");
-      process.exit(1);
+    else if (val == "-i" || val == "--id") {
+      if (process.argv.length != 4) {
+        console.log("Not spm command. See 'spm --help'.");
+      } else {
+        machine_id = process.argv[3];
+        console.log("Machine ID: " + machine_id);
+      }
     }
   });
 
-  callback(limit);
+  callback(machine_id);
 }
 
-process_cli(function (limit) {
-  fs.readFile('/etc/machine-id', function (err, file_data) {
-    if (err) {
-      return console.log(err);
-    }
-    var machine_id = file_data.toString().slice(0, -1);
-    var topic = "spm/" + machine_id;
+process_cli(function (machine_id) {
+  var data_file = 'spmonesweep';
+  var sweep = fs.readFileSync(data_file, 'utf8');
+  var lines = sweep.split(/\r?\n/);
+  lines.pop();
+  var topic = "spm/" + machine_id;
 
-    var client  = mqtt.connect('mqtt://10.122.248.42');
-    client.on('connect', function () {
-      var port = new SerialPort('/dev/ttyMFD1', {
-        baudRate: 115200,
-        parity: 'odd',
-        parser: SerialPort.parsers.readline()
-      });
-
-      port.on('data', function (serial_data) {
-        sunseed_parser.spm(serial_data, machine_id, function (err, parsed_data) {
+  var client  = mqtt.connect('mqtt://193.2.205.66');
+  client.on('connect', function () {
+    setInterval(function () {
+      for (let i = 0; i < lines.length; i++) {
+        sunseed_parser.spm(lines[i], machine_id, function (err, parsed_data) {
           if (err) {
-            console.log(err + " Data: " + serial_data);
+            console.log(err + " Data: " + lines[i]);
           }
           else {
-            if (limit) {
-              if (parsed_data.indexOf('"report_n":49') !== -1) {
-                client.publish(topic, parsed_data);
-              }
-            }
-            else {
+            setTimeout(function () {
               client.publish(topic, parsed_data);
-            }
+              //console.log(parsed_data);
+            }, 20*i);
           }
         });
-      });
-    });
+      }
+    }, 1000);
   });
 });

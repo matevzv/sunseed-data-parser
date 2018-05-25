@@ -278,8 +278,18 @@ var spm = function (data, node_id, callback) {
 
     var formated = {node_id: node_id};
 
+    var gps_time = Math.floor(Date.now() / 1000) - 315964800
+    week_id = Math.floor(gps_time / 604800);
+    sec_id = Math.floor(gps_time % 604800);
+
     for (var i = 0; i < spm_data_length; i++) {
-      formated[field_descriptions[i]] = parseFloat(data[i]);
+      if (field_descriptions[i] == "week_id") {
+        formated[field_descriptions[i]] = week_id;
+      } else if (field_descriptions[i] == "sec_id"){
+        formated[field_descriptions[i]] = sec_id;
+      } else {
+        formated[field_descriptions[i]] = parseFloat(data[i]);
+      }
     }
 
     callback(null, JSON.stringify(formated));

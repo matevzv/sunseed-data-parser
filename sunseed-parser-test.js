@@ -51,7 +51,7 @@ data_pmc.push(1)
 data_pmc.push(0)
 data_pmc.push(1)
 
-device = "spm"
+device = "pmc"
 
 if (device == "spm") {
   wams = sunseed_parser.spm;
@@ -63,27 +63,30 @@ else if (device == "pmc") {
 }
 
 // test WAMS parser functions
-wams(data_wams, "1", function (err, parsed_data) {
+/*/wams(data_wams, "1", function (err, parsed_data) {
   if (err) {
     console.log(err);
   }
   else {
     console.log(parsed_data);
   }
-});
+});*/
 
 
-// test PMC and SPM parser functions
+/*// test PMC and SPM parser functions
 sunseed_parser.pmc(data_pmc, function (err, parsed_data) {
   if (err) {
     console.log(err);
   }
   else {
-    console.log("PMC data: " + parsed_data);
+    //data_json = JSON.parse(parsed_data)
+    //console.log(data_json.length);
+    //short = data_json.splice(0, 6)
+    console.log(JSON.parse(parsed_data).splice(3, 3));
   }
-});
+});*/
 
-process_cli(function (limit) {
+/*process_cli(function (limit) {
   fs.readFile('/etc/machine-id', function (err, file_data) {
     if (err) {
       return console.log(err);
@@ -104,19 +107,29 @@ process_cli(function (limit) {
       }
     });
   });
-});
+});*/
+
+data_pmc = "PMC1,233.60,233.81,233.47,0.10,0.07,0.08,0.07,49.97,0.00,0.00,36.00,36.00,36.10,0.00,160.10,0.00,-0.10,-0.20,-0.40,-0.20,0.00,0.10,2.20,1.60,1.90,-4.40,-8.20,-18.20,-0.20,-0.20,-0.40,0.00,0.00,-0.10,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.20,0.10,0.30,38.00,1.00,1.00,0.00"
 
 sunseed_parser.pmc(data_pmc, function (err, parsed_data) {
   if (err) {
     console.log(err);
   }
   else {
-    fs.writeFileSync(pmc_file_name, parsed_data + "\n");
-    console.log("PMC file created.");
+    var power_data = JSON.parse(parsed_data).splice(16, 3)
+    power_data[0].value *= 10
+    power_data[1].value *= 10
+    power_data[2].value *= 10
+    cosfi_data = JSON.parse(parsed_data).splice(25, 3)
+    cosfi_data[0].value = (cosfi_data[0].value / 100).toFixed(3)
+    cosfi_data[1].value = (cosfi_data[1].value / 100).toFixed(3)
+    cosfi_data[2].value = (cosfi_data[2].value / 100).toFixed(3)
+    interesting_data = power_data.concat(cosfi_data)
+    console.log(JSON.stringify(interesting_data));
   }
 });
 
-sunseed_parser.spm_long(data_spm, function (err, parsed_data) {
+/*sunseed_parser.spm_long(data_spm, function (err, parsed_data) {
   if (err) {
     console.log(err);
   }
@@ -130,3 +143,4 @@ sunseed_parser.toggle([0, 0 ,1], function (err, message) {
   if (err) return console.log(err.message);
   return console.log(message);
 });
+*/
