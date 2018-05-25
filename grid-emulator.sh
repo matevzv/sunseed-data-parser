@@ -14,10 +14,11 @@ declare -a arr=("16700204541000610086a000a000006f"
 "167002045410006104bfa000a0000094"
 "167002045410006104b3a000a00000b0")
 
+run = ""
+
 for i in "${arr[@]}"
 do
-  nodejs spm.js -i  "$i" &
+  run+="nodejs spm.js -i "$i" & "
 done
 
-wait
-kill -- -$$
+eval ""$run"wait"
