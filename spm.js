@@ -42,7 +42,7 @@ process_cli(function (machine_id) {
   lines.pop();
   var topic = "spm/" + machine_id;
 
-  var client  = mqtt.connect('mqtt://193.2.205.66');
+  var client  = mqtt.connect('mqtt://127.0.0.1');
   client.on('connect', function () {
     setInterval(function () {
       for (let i = 0; i < lines.length; i++) {
