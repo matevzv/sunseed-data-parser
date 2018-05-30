@@ -68,7 +68,7 @@ serial_emulator = function (callback) {
 process_cli(function (machine_id) {
   var topic = "spm/" + machine_id;
 
-  var client  = mqtt.connect('mqtt://193.2.205.66');
+  var client  = mqtt.connect('mqtt://127.0.0.1');
   client.on('connect', function () {
     serial_emulator(function (line) {
       sunseed_parser.spm(line, machine_id, week_id, sec_id, function (err, parsed_data) {
@@ -77,7 +77,6 @@ process_cli(function (machine_id) {
         }
         else {
           client.publish(topic, parsed_data);
-          //console.log(parsed_data);
         }
       });
     });
