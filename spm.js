@@ -4,7 +4,7 @@ var fs = require('fs');
 var mqtt = require('mqtt');
 var sunseed_parser = require('./sunseed-parser');
 
-var data_file = 'realspmdatatest';
+var data_file = 'datasets/realspmdatatest';
 var sweep = fs.readFileSync(data_file, 'utf8');
 var lines = sweep.split(/\r?\n/);
 lines.pop();
