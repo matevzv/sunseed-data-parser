@@ -47,6 +47,7 @@ serial_emulator = function (callback) {
   var chunk = 50
   var chunks = (lines.length) / chunk;
   var start = Math.floor(Math.random() * chunks);
+  console.log("Random chunk: " + start);
   var i = start;
   
   setInterval(function () {
