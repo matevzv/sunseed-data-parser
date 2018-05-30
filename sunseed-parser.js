@@ -2,6 +2,7 @@ pmc_data_length = 53;
 spm_data_length = 20;
 allow_toggle = true;
 input_status = [];
+sec = 0;
 
 var toggle = function (output, callback) {
   if (allow_toggle) {
@@ -247,7 +248,7 @@ var pmc = function (data, callback) {
   }
 }
 
-var spm = function (data, node_id, callback) {
+var spm = function (data, node_id, week_id, sec_id, callback) {
   data = data.toString().split(",");
   data.shift();
 
@@ -278,15 +279,14 @@ var spm = function (data, node_id, callback) {
 
     var formated = {node_id: node_id};
 
-    var gps_time = Math.floor(Date.now() / 1000) - 315964800
-    week_id = Math.floor(gps_time / 604800);
-    sec_id = Math.floor(gps_time % 604800);
-
     for (var i = 0; i < spm_data_length; i++) {
       if (field_descriptions[i] == "week_id") {
         formated[field_descriptions[i]] = week_id;
       } else if (field_descriptions[i] == "sec_id"){
-        formated[field_descriptions[i]] = sec_id;
+        formated[field_descriptions[i]] = sec_id + sec;
+      } else if (field_descriptions[i] == "report_n" && parseFloat(data[i]) == 49) {
+        formated[field_descriptions[i]] = parseFloat(data[i]);
+        sec++;
       } else {
         formated[field_descriptions[i]] = parseFloat(data[i]);
       }

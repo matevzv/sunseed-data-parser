@@ -4,6 +4,14 @@ var fs = require('fs');
 var mqtt = require('mqtt');
 var sunseed_parser = require('./sunseed-parser');
 
+var data_file = 'realspmdatatest';
+var sweep = fs.readFileSync(data_file, 'utf8');
+var lines = sweep.split(/\r?\n/);
+lines.pop();
+var gps_time = Math.floor(Date.now() / 1000) - 315964800
+var week_id = Math.floor(gps_time / 604800);
+var sec_id = Math.floor(gps_time % 604800);
+
 // commandline args
 var process_cli = function (callback) {
   var machine_id = "";
@@ -35,29 +43,43 @@ var process_cli = function (callback) {
   callback(machine_id);
 }
 
+serial_emulator = function (callback) {
+  var chunk = 50
+  var chunks = (lines.length) / chunk;
+  var start = Math.floor(Math.random() * chunks);
+  var i = start;
+  
+  setInterval(function () {
+    if (i >= start && i < chunks) {
+      for (var j = i*chunk; j < i*chunk+chunk; j++) {
+        callback(lines[j]);
+      }
+      i++;
+    } else {
+      if (i == chunks) i = 0;
+      for (var j = i*chunk; j < i*chunk+chunk; j++) {
+        callback(lines[j]);
+      }
+      i++;
+    }
+  }, 1000);
+}
+
 process_cli(function (machine_id) {
-  var data_file = 'spmonesweep';
-  var sweep = fs.readFileSync(data_file, 'utf8');
-  var lines = sweep.split(/\r?\n/);
-  lines.pop();
   var topic = "spm/" + machine_id;
 
-  var client  = mqtt.connect('mqtt://127.0.0.1');
+  var client  = mqtt.connect('mqtt://193.2.205.66');
   client.on('connect', function () {
-    setInterval(function () {
-      for (var i = 0; i < lines.length; i++) {
-        var line = lines[i];
-        sunseed_parser.spm(line, machine_id, function (err, parsed_data) {
-          if (err) {
-            console.log(err + " Data: " + line);
-          }
-          else {
-            setTimeout(function () {
-              client.publish(topic, parsed_data);
-            }, 20*i);
-          }
-        });
-      }
-    }, 1000);
+    serial_emulator(function (line) {
+      sunseed_parser.spm(line, machine_id, week_id, sec_id, function (err, parsed_data) {
+        if (err) {
+          console.log(err + " Data: " + line);
+        }
+        else {
+          client.publish(topic, parsed_data);
+          //console.log(parsed_data);
+        }
+      });
+    });
   });
 });
