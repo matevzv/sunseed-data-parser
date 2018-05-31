@@ -54,7 +54,7 @@ serial_emulator = function (callback) {
   setInterval(function () {
     if (i == chunks) i = 0;
     for (var j = i*chunk; j < i*chunk+chunk; j++) {
-      console.log(lines[j]);
+      callback(lines[j]);
     }
     i++;
   }, 1000);
