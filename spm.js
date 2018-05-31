@@ -47,22 +47,16 @@ serial_emulator = function (callback) {
   var chunk = 50
   var chunks = (lines.length) / chunk;
   var start = Math.floor(Math.random() * chunks);
-  console.log("Random chunk: " + start);
-  var i = start;
   
+  console.log("Random start: " + start);
+  
+  var i = start;
   setInterval(function () {
-    if (i >= start && i < chunks) {
-      for (var j = i*chunk; j < i*chunk+chunk; j++) {
-        callback(lines[j]);
-      }
-      i++;
-    } else {
-      if (i == chunks) i = 0;
-      for (var j = i*chunk; j < i*chunk+chunk; j++) {
-        callback(lines[j]);
-      }
-      i++;
+    if (i == chunks) i = 0;
+    for (var j = i*chunk; j < i*chunk+chunk; j++) {
+      console.log(lines[j]);
     }
+    i++;
   }, 1000);
 }
 

@@ -25,28 +25,10 @@ var start = Math.floor(Math.random() * chunks);
 var i = start;
 
 setInterval(function () {
-  if (i >= start && i < chunks) {
-    console.log("-----------------------: " + i);
-    for (var j = i*chunk; j < i*chunk+chunk; j++) {
-      console.log(lines[j]);
-      /*if (j == 0) {
-        console.log(lines[j]);
-      } else if (j != 1) {
-        console.log(lines[j-1]);
-      }*/
-    }
-    i++;
-  } else {
-    if (i == chunks) i = 0;
-    console.log("-----------------------: " + i);
-    for (var j = i*chunk; j < i*chunk+chunk; j++) {
-      console.log(lines[j]);
-      /*if (j == 0) {
-        console.log(lines[j]);
-      } else if (j != 1) {
-        console.log(lines[j-1]);
-      }*/
-    }
-    i++;
+  if (i == chunks) i = 0;
+  console.log("-----------------------: " + i);
+  for (var j = i*chunk; j < i*chunk+chunk; j++) {
+    console.log(lines[j]);
   }
+  i++;
 }, 1000);
