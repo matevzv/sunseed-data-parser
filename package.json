@@ -6,6 +6,6 @@
   "license": "MIT",
   "dependencies": {
     "serialport": "*",
-    "mqtt": "*"
+    "influx": "*"
   }
 }
