@@ -1,7 +1,8 @@
-var fs = require('fs');
+const fs = require('fs');
 const Influx = require('influx');
-var SerialPort = require('serialport');
-var sunseed_parser = require('sunseed-parser');
+const SerialPort = require('serialport');
+const Readline = require('parser-readline');
+const sunseed_parser = require('sunseed-parser');
 
 var toggle_file = '/var/pmc/toggle';
 var toggle = fs.readFileSync(toggle_file, 'utf8').trim();
@@ -15,12 +16,14 @@ const influx = new Influx.InfluxDB({
   password: 'pmc'
 });
 
-var port = new SerialPort('/dev/ttyMFD1', {
+const port = new SerialPort('/dev/ttyMFD1', {
   baudRate: 115200,
   parity: 'odd'
 });
 
-port.on('data', function (serial_data) {
+const parser = port.pipe(new Readline());
+
+parser.on('data', function (serial_data) {
   sunseed_parser.pmc_simple(serial_data, function (err, parsed_data) {
     if (err) {
       console.log(err + " Data: " + serial_data);
