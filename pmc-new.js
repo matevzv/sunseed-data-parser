@@ -35,10 +35,10 @@ parser.on('data', function (serial_data) {
             sunseed_parser.toggle(file.split(','), function (err,input,output) {
                 if (err) return console.log(err.message);
                 if (file == toggle) {
-                fs.writeFileSync(toggle_file, input);
-                file = input;
+                    fs.writeFileSync(toggle_file, input);
+                    file = input;
                 } else {
-                port.write(output);
+                    port.write(output);
                 }
                 toggle = file;
             });
