@@ -9,9 +9,10 @@ var toggle = fs.readFileSync(toggle_file, 'utf8').trim();
 var machine_id = fs.readFileSync('/etc/machine-id', 'utf8').trim();
 var topic = "pmc/" + machine_id;
 
-var client  = mqtt.connect('mqtt://localhost');
+var url = 'mqtt://localhost'
+var client  = mqtt.connect(url);
 client.on('connect', function () {
-    console.log("MQTT Connected.")
+    console.log("Connected to " + url)
 });
 
 var port = new SerialPort('/dev/ttyMFD1', {
