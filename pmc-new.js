@@ -20,9 +20,7 @@ var port = new SerialPort('/dev/ttyMFD1', {
     parity: 'odd'
 });
 
-var parsers = SerialPort.parsers;
-var parser = new parsers.Readline();
-port.pipe(parser);
+var parser = port.pipe(new SerialPort.parsers.Readline());
 
 parser.on('data', function (serial_data) {
     sunseed_parser.pmc_simple(serial_data, machine_id,  function (err, parsed_data) {

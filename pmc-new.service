@@ -1,0 +1,13 @@
+[Unit]
+Description=PMC serial reader and parser
+Requires=network-online.target
+After=network-online.target edison-machine-id.service wams-config.service
+
+[Service]
+WorkingDirectory=/var/pmc
+ExecStart=/usr/bin/node pmc.js
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=basic.target
