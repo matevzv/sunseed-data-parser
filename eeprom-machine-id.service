@@ -1,0 +1,13 @@
+[Unit]
+Description=Generate unique machine-id from eeprom
+Requires=i2conf.service
+After=i2conf.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/edison-machine-id-setup
+ExecStartPost=/bin/systemctl disable edison-machine-id
+StandardOutput=journal+console
+
+[Install]
+WantedBy=basic.target
